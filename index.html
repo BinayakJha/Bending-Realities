@@ -4,205 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>There Is No Box</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
         }
 
         body {
-            background: #000;
+            background: whitesmoke;
             height: 100vh;
-            overflow: hidden;
-            font-family: 'Orbitron', sans-serif;
-            position: relative;
-        }
-
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            opacity: 0.5;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
-        .container {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            position: relative;
-            z-index: 2;
-            padding: 20px;
+            text-align: center;
+            flex-direction: column;
+            font-family: 'Work Sans', sans-serif;
         }
 
         .title {
-            color: #e0e0e0;
-            font-size: clamp(40px, 8vw, 100px);
-            text-align: center;
-            position: relative;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            animation: float 3s ease-in-out infinite;
-            font-weight: 700;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            font-weight: 500;
+            color: #000;
+            text-transform: lowercase;
         }
 
         .subtitle {
-            color: #888;
-            font-size: clamp(16px, 2vw, 24px);
-            text-align: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: fade 2s ease-in-out infinite;
-        }
-
-        .cursor-effect {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-            mix-blend-mode: difference;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes fade {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 20%, transparent 100%);
-            border-radius: 50%;
-            animation: particle-fade 1s forwards;
-        }
-
-        @keyframes particle-fade {
-            0% { transform: scale(0.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: clamp(32px, 12vw, 60px);
-                letter-spacing: 2px;
-                margin-bottom: 15px;
-            }
-            
-            .subtitle {
-                font-size: clamp(14px, 3vw, 18px);
-            }
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.5rem;
+            color: #333;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    <div class="overlay"></div>
-    <div class="container">
-        <h1 class="title">THERE IS NO BOX </h1>
-        <div class="subtitle">Breaking Creative Limitations in Humans and AI</div>
-    </div>
-
-    <script>
-        // Enhanced Matrix Effect
-        class MatrixEffect {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.fontSize = 16;
-                this.columns = [];
-                this.init();
-            }
-
-            init() {
-                this.resize();
-                window.addEventListener('resize', () => this.resize());
-                this.columns = Array(Math.floor(this.canvas.width/this.fontSize)).fill(0);
-                this.animate();
-            }
-
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-
-            draw() {
-                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                this.ctx.fillStyle = 'rgba(180, 180, 180, 0.9)';
-                this.ctx.font = this.fontSize + 'px monospace';
-
-                this.columns.forEach((y, index) => {
-                    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    const text = chars[Math.floor(Math.random() * chars.length)];
-                    const x = index * this.fontSize;
-                    
-                    this.ctx.fillText(text, x, y);
-                    
-                    if(y > this.canvas.height) this.columns[index] = 0;
-                    else this.columns[index] = y + this.fontSize;
-                });
-            }
-
-            animate() {
-                this.draw();
-                requestAnimationFrame(() => this.animate());
-            }
-        }
-
-        // Initialize Matrix effect
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        new MatrixEffect(matrixCanvas);
-
-        // Cursor and Particle Effects
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.createElement('div');
-            cursor.classList.add('cursor-effect');
-            document.body.appendChild(cursor);
-
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-
-                for(let i = 0; i < 3; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    particle.style.left = e.clientX + 'px';
-                    particle.style.top = e.clientY + 'px';
-                    const size = Math.random() * 8 + 2;
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    document.body.appendChild(particle);
-
-                    setTimeout(() => particle.remove(), 1000);
-                }
-            });
-        });
-    </script>
+    <h1 class="title">thereisnobox.xyz</h1>
+    <p class="subtitle">Breaking creative limitations in Humans and AI</p>
 </body>
 </html>
