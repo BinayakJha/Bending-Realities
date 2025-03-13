@@ -3,134 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sacred Resistance - Coming Soon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>There Is No Box</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            cursor: none;
         }
+
         body {
-            background: linear-gradient(135deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%),
-                        url('https://source.unsplash.com/1600x900/?nature,spiritual,forest');
-            background-blend-mode: overlay;
-            background-size: cover;
-            background-position: center;
+            background: #000;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center;
-            color: white;
-            flex-direction: column;
+            position: relative;
+            z-index: 2;
             padding: 20px;
-            backdrop-filter: blur(5px);
         }
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            max-width: 900px;
-            width: 100%;
-            transition: all 0.5s ease;
-        }
-        .container:hover {
-            transform: scale(1.02);
-        }
-        .text-content {
+
+        .title {
+            color: #e0e0e0;
+            font-size: clamp(40px, 8vw, 100px);
             text-align: center;
-            flex: 1;
-            padding: 20px;
-            min-width: 300px;
-        }
-        .book-image {
-            width: 250px;
-            height: auto;
-            transform: rotateY(15deg);
-            transition: transform 0.5s;
-            margin-top: 20px;
-        }
-        .book-image:hover {
-            transform: rotateY(0deg) scale(1.05);
-        }
-        h1 {
-            font-size: 2.2rem;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
             font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
         }
-        p {
-            font-size: 1.1rem;
-            margin: 10px 0 20px;
-        }
-        .button-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .button-container a {
-            text-decoration: none;
-            padding: 12px 25px;
-            margin: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            display: inline-block;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-        .amazon-button {
-            background: #FF9900;
-            color: white;
-        }
-        .other-sources-button {
-            background: #FFD700;
-            color: black;
-        }
-        .amazon-button:hover {
-            background: #CC7A00;
-            transform: translateY(-3px);
-        }
-        .other-sources-button:hover {
-            background: #FFC107;
-            transform: translateY(-3px);
-        }
-        footer {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            opacity: 0.8;
+
+        .subtitle {
+            color: #888;
+            font-size: clamp(16px, 2vw, 24px);
             text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fade 2s ease-in-out infinite;
         }
+
+        .cursor-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fade {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 20%, transparent 100%);
+            border-radius: 50%;
+            animation: particle-fade 1s forwards;
+        }
+
+        @keyframes particle-fade {
+            0% { transform: scale(0.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
+            .title {
+                font-size: clamp(32px, 12vw, 60px);
+                letter-spacing: 2px;
+                margin-bottom: 15px;
             }
-            .book-image {
-                width: 200px;
+            
+            .subtitle {
+                font-size: clamp(14px, 3vw, 18px);
             }
         }
     </style>
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="overlay"></div>
     <div class="container">
-        <div class="text-content">
-            <h1>Sacred Resistance: Eco-Activism & Spiritual Awakening</h1>
-            <p>A powerful new book by Mark Clatterbuck | <span style="color: #FFD700;">Coming Soon</span></p>
-            <div class="button-container">
-                <a href="https://www.amazon.com/Sacred-Resistance-Eco-Activism-Spiritual-Communities/dp/1626985987" class="amazon-button" target="_blank">Buy on Amazon</a>
-                <a href="https://orbisbooks.com/products/sacred-resistance-eco-activism-and-the-rise-of-new-spiritual-communities" class="other-sources-button" target="_blank">Other Sources</a>
-            </div>
-            <footer>
-                Cover design: Ponie Sheehan | Photo by David Parry
-            </footer>
-        </div>
-        <img src="https://orbisbooks.com/cdn/shop/files/Clatterbuck_SacredResistance_03763c73-46d5-42e5-80a1-db6fe4b4ed3b_900x.jpg?v=1730296647" alt="Sacred Resistance Book Cover" class="book-image">
+        <h1 class="title">THERE IS NO BOX </h1>
+        <div class="subtitle">Breaking Creative Limitations in Humans and AI</div>
     </div>
+
+    <script>
+        // Enhanced Matrix Effect
+        class MatrixEffect {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.fontSize = 16;
+                this.columns = [];
+                this.init();
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.columns = Array(Math.floor(this.canvas.width/this.fontSize)).fill(0);
+                this.animate();
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            draw() {
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.ctx.fillStyle = 'rgba(180, 180, 180, 0.9)';
+                this.ctx.font = this.fontSize + 'px monospace';
+
+                this.columns.forEach((y, index) => {
+                    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    const x = index * this.fontSize;
+                    
+                    this.ctx.fillText(text, x, y);
+                    
+                    if(y > this.canvas.height) this.columns[index] = 0;
+                    else this.columns[index] = y + this.fontSize;
+                });
+            }
+
+            animate() {
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize Matrix effect
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        new MatrixEffect(matrixCanvas);
+
+        // Cursor and Particle Effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.createElement('div');
+            cursor.classList.add('cursor-effect');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+
+                for(let i = 0; i < 3; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    particle.style.left = e.clientX + 'px';
+                    particle.style.top = e.clientY + 'px';
+                    const size = Math.random() * 8 + 2;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
