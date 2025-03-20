@@ -28,7 +28,7 @@ export default function LandingPage() {
           filter: 'blur(20px)',
           animation: 'glow 4s ease-in-out infinite',
           transform: 'translate(50%, -50%)',
-          right: '35%',
+          right: '47%',
           top: '50%',
           zIndex: 0,
           mixBlendMode: 'screen'
