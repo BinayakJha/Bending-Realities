@@ -1,0 +1,37 @@
+Prompt for AI to Generate the Landing Page:
+
+"Create a minimalist and futuristic landing page with a smooth gradient background and centered text. Follow these specific details to ensure accuracy:
+
+    Background:
+        A vertical gradient transitioning from white at the top to light blue in the middle, then blending into a soft pinkish hue at the bottom.
+        The gradient should be subtle and evenly distributed.
+
+    Typography & Text Layout:
+        Center the text both horizontally and vertically on the page.
+        The main text should read: 'thereisnobox.xyz' with a specific color variation:
+            'thereis' should be in black (#000000).
+            'no' should be in a soft blue-turquoise gradient (#6DC5D1 to #A2D8E7).
+            'box' should be in the same blue-turquoise gradient.
+            '.xyz' should be in black (#000000).
+        Below this, add the tagline: 'the future of intelligence', styled as follows:
+            The phrase 'the future of' should be in black (#000000).
+            'intelligence' should be in a deep red shade (#D64545).
+
+    Typography Specifications:
+        Use a modern sans-serif font like Inter, Poppins, or Montserrat.
+        The main title ('thereisnobox.xyz') should be bold, large (around 40-50px).
+        The tagline ('the future of intelligence') should be regular weight, smaller (around 16-20px).
+
+    Page Structure & Responsiveness:
+        Ensure the page is fully responsive, maintaining centered text and consistent gradient scaling across different screen sizes.
+        There should be ample whitespace around the text for a clean and minimalist feel.
+
+    Animations (Optional but Preferred):
+        A subtle fade-in animation for the text on page load (0.8s duration).
+        The background gradient can have a gentle transition effect on load (1s ease-in-out).
+
+    Overall Design Feel:
+        Minimalist, modern, and futuristic.
+        No additional elements (buttons, icons, navigation) should be present.
+
+Ensure the page is generated exactly as described to match the reference image. The design should evoke a sense of innovation and futuristic intelligence while keeping it sleek and simple."
