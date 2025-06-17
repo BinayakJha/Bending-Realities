@@ -66,7 +66,7 @@ export default function LandingPage() {
             color: 'transparent'
           }}
         >
-          the future of intelligence
+          build beyond limitations
         </p>
       </div>
     </div>
