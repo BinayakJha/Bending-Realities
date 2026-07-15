@@ -66,7 +66,7 @@ export default function LandingPage() {
             color: 'transparent'
           }}
         >
-          build beyond limitations
+          create beyond limitations
         </p>
       </div>
     </div>
